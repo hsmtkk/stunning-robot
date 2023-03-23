@@ -1,12 +1,22 @@
 package main
 
 import (
+	"fmt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"log"
 	"net/http"
+	"os"
+	"strconv"
 )
 
 func main() {
+	portStr := os.Getenv("PORT")
+	port, err := strconv.Atoi(portStr)
+	if err != nil {
+		log.Fatalf("failed to parse %s as int; %s", portStr, err.Error())
+	}
+
 	// Echo instance
 	e := echo.New()
 
@@ -18,7 +28,7 @@ func main() {
 	e.GET("/", hello)
 
 	// Start server
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", port)))
 }
 
 // Handler

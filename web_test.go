@@ -16,5 +16,5 @@ func TestHandler(t *testing.T) {
 
 	assert.NoError(t, hello(c))
 	assert.Equal(t, http.StatusOK, rec.Code)
-	assert.Equal(t, "Hi, World!", rec.Body.String())
+	assert.Equal(t, "Hello, World!", rec.Body.String())
 }

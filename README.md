@@ -65,3 +65,6 @@ gcloud builds triggers create github --pull-request-pattern="^production$" --com
 
 # GitHub pull request作成
 - branch protection rule作成 Require status checks to pass before merging, Do not allow bypass
+  Status checks that are required => production-pull-request
+
+# 修正、再push
