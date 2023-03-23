@@ -49,7 +49,7 @@
 - Cloud Build GUIでGitHub接続
 - cloudbuild-develop-push.yaml
 
-gcloud builds triggers create github --branch-pattern="^develop$" --build-config=cloudbuild-develop-push.yaml --repo-name=stunning-robot --repo-owner=hsmtkk --name=develop-push
+gcloud builds triggers create github --branch-pattern="^develop$" --build-config=cloudbuild-push.yaml --repo-name=stunning-robot --repo-owner=hsmtkk --name=develop-push
 
 https://cloud.google.com/sdk/gcloud/reference/beta/builds/triggers/create/github
 
@@ -83,4 +83,4 @@ gcloud projects add-iam-policy-binding $DEVELOP_ID --member=serviceAccount:servi
 - cloudbuild-production-push.yaml
 gcloud config set project $PRODUCTION_ID
 
-gcloud builds triggers create github --branch-pattern="^production$" --build-config=cloudbuild-production-push.yaml --repo-name=stunning-robot --repo-owner=hsmtkk --name=production-push
+gcloud builds triggers create github --branch-pattern="^production$" --build-config=cloudbuild-push.yaml --repo-name=stunning-robot --repo-owner=hsmtkk --name=production-push
