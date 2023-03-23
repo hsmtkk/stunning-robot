@@ -68,3 +68,19 @@ gcloud builds triggers create github --pull-request-pattern="^production$" --com
   Status checks that are required => production-pull-request
 
 # 修正、再push
+
+# production deploy manually
+gcloud config set project $PRODUCTION_ID
+gcloud run deploy web --allow-unauthenticated --execution-environment=gen2 --image=us-central1-docker.pkg.dev/${DEVELOP_ID}/registry/web:latest --region=us-central1
+
+```
+ERROR: (gcloud.run.deploy) Google Cloud Run Service Agent service-989728667853@serverless-robot-prod.iam.gserviceaccount.com must have permission to read the image, us-central1-docker.pkg.dev/develop-381422/registry/web:latest. Ensure that the provided container image URL is correct and that the above account has permission to access the image. If you just enabled the Cloud Run API, the permissions might take a few minutes to propagate. Note that the image is from project [develop-381422], which is not the same as this project [production-381422]. Permission must be granted to the Google Cloud Run Service Agent service-989728667853@serverless-robot-prod.iam.gserviceaccount.com from this project.
+```
+
+gcloud projects add-iam-policy-binding $DEVELOP_ID --member=serviceAccount:service-989728667853@serverless-robot-prod.iam.gserviceaccount.com --role=roles/artifactregistry.reader
+
+# production deploy with cloud build
+- cloudbuild-production-push.yaml
+gcloud config set project $PRODUCTION_ID
+
+gcloud builds triggers create github --branch-pattern="^production$" --build-config=cloudbuild-production-push.yaml --repo-name=stunning-robot --repo-owner=hsmtkk --name=production-push
