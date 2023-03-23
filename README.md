@@ -56,3 +56,12 @@ https://cloud.google.com/sdk/gcloud/reference/beta/builds/triggers/create/github
 - dummy push
 git commit --allow-empty -m trigger
 git push
+
+# test
+- web_test.go
+- cloudbuild-production-pull-request.yaml
+
+gcloud builds triggers create github --pull-request-pattern="^production$" --comment-control=COMMENTS_DISABLED --build-config=cloudbuild-develop-push.yaml --repo-name=stunning-robot --repo-owner=hsmtkk --name=production-pull-request
+
+# GitHub pull request作成
+- branch protection rule作成 Require status checks to pass before merging
