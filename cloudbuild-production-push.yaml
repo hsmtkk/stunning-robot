@@ -1,0 +1,13 @@
+steps:
+- name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  entrypoint: gcloud
+  args:
+  - run
+  - deploy
+  - web
+  - --allow-unauthenticated
+  - --image=${_REGION}-docker.pkg.dev/${_DEVELOP_ID}/registry/web:${COMMIT_SHA}
+  - --region=${_REGION}
+substitutions:
+  _DEVELOP_ID: develop-381422
+  _REGION: us-central1
