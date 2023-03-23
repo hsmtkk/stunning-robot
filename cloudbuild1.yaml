@@ -1,0 +1,10 @@
+steps:
+- name: gcr.io/cloud-builders/docker
+  args:
+  - build
+  - --tag=${_REGION}-docker.pkg.dev/${PROJECT_ID}/registry/web:latest
+  - .
+images:
+- ${_REGION}-docker.pkg.dev/${PROJECT_ID}/registry/web:latest
+substitutions:
+  _REGION: us-central1
